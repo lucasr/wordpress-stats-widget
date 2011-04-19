@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="counter_color">#FFCC00</color>
+    <color name="description_color">#FFFFFF</color>
+    <color name="configure_bg_color">#2e2e2e</color>
+    <color name="configure_text_color">#FFFFFF</color>
+</resources>

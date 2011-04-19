@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  			  android:layout_width="match_parent"
+  			  android:layout_height="match_parent"
+  			  android:orientation="vertical"
+  			  android:paddingTop="20sp"
+  			  android:paddingLeft="10sp"
+  			  android:paddingRight="10sp"
+  			  android:background="@color/configure_bg_color">
+
+    <ImageView android:layout_width="wrap_content"
+    		   android:id="@+id/wp_logo"
+    		   android:src="@drawable/wp_logo_large"
+    		   android:layout_height="wrap_content"
+    		   android:layout_gravity="center_horizontal"
+    		   android:paddingTop="30sp"
+    		   android:paddingBottom="30sp"/>
+    
+    <TextView android:layout_width="wrap_content"
+    		  android:text="@string/configure_username"
+    		  android:textSize="18sp"
+    		  android:textColor="@color/configure_text_color"
+    		  android:layout_height="wrap_content"
+    		  android:id="@+id/username_text"
+    		  android:paddingTop="5sp"
+    		  android:paddingBottom="5sp"/>
+    
+    <EditText android:layout_width="match_parent"
+    		  android:layout_height="wrap_content"
+    		  android:id="@+id/username_entry"
+    		  android:lines="1"
+    		  android:imeOptions="actionNext"
+    		  android:nextFocusDown="@+id/password_entry"/>
+
+    <TextView android:layout_width="wrap_content"
+    		  android:text="@string/configure_password"
+    		  android:textSize="18sp"
+    		  android:textColor="@color/configure_text_color"
+    		  android:layout_height="wrap_content"
+    		  android:id="@+id/password_text"
+    		  android:paddingTop="15sp"
+    		  android:paddingBottom="5sp"/>
+
+    <EditText android:layout_width="match_parent"
+    		  android:layout_height="wrap_content"
+    		  android:password="true"
+    		  android:lines="1"
+    		  android:imeOptions="actionDone"
+    		  android:id="@+id/password_entry"
+    		  android:nextFocusDown="@+id/login_button"/>
+
+    <LinearLayout android:id="@+id/error_layout"
+    			  android:layout_height="wrap_content"
+    			  android:layout_width="wrap_content"
+    			  android:layout_gravity="center"
+    			  android:visibility="gone"
+    			  android:minHeight="110sp">
+
+        <ImageView android:id="@+id/error_icon"
+        		   android:src="@drawable/error"
+        		   android:layout_gravity="center_vertical"
+        		   android:layout_height="wrap_content"
+        		   android:layout_width="wrap_content"/>
+
+        <TextView android:text="@string/login_error_auth"
+        		  android:id="@+id/error_text"
+        		  android:textColor="@color/configure_text_color"
+        		  android:layout_gravity="center_vertical"
+        		  android:layout_width="wrap_content"
+        		  android:textStyle="italic"
+        		  android:layout_height="wrap_content"
+        		  android:paddingLeft="16sp"
+        		  android:minWidth="210sp"
+        		  android:maxWidth="210sp"/>
+
+    </LinearLayout>
+
+    <LinearLayout android:id="@+id/progress_layout"
+    			  android:layout_height="wrap_content"
+    			  android:visibility="gone"
+    			  android:layout_gravity="center"
+    			  android:layout_width="wrap_content"
+    			  android:minHeight="110sp">
+
+        <ProgressBar android:id="@+id/progress_bar"
+        			 android:layout_width="wrap_content"
+        			 android:layout_height="wrap_content"
+        			 android:layout_gravity="center_vertical"
+        			 android:minWidth="40sp"
+        			 android:minHeight="40sp"/>
+
+    </LinearLayout>
+    		  
+    <LinearLayout android:id="@+id/button_layout"
+    		      android:layout_width="match_parent"
+    		  	  android:layout_gravity="bottom"
+    		  	  android:baselineAligned="true"
+    		  	  android:layout_height="fill_parent"
+    		  	  android:layout_weight="1">
+
+        <Button android:text="@string/configure_cancel"
+        		android:layout_width="fill_parent"
+        		android:layout_height="wrap_content"
+        		android:id="@+id/cancel_button"
+        		android:layout_gravity="bottom"
+        		android:layout_weight="1"/>
+
+        <Button android:text="@string/configure_log_in"
+        		android:layout_width="fill_parent"
+        		android:layout_height="wrap_content"
+        		android:id="@+id/login_button"
+        		android:layout_gravity="bottom"
+        		android:layout_weight="1"
+        		android:enabled="false"/>
+
+    </LinearLayout>
+
+</LinearLayout>

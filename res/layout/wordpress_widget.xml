@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:background="@drawable/bg"
+              android:gravity="center"
+              android:orientation="horizontal"
+              android:id="@+id/main_layout"
+              android:paddingLeft="17sp"
+              android:paddingRight="17sp"
+              android:paddingTop="5sp"
+              android:paddingBottom="5sp"
+              android:layout_height="wrap_content"
+              android:layout_width="match_parent"
+              android:baselineAligned="true">
+
+    <ImageView android:src="@drawable/wp_logo"
+			   android:layout_height="wrap_content"
+			   android:layout_width="wrap_content"
+			   android:id="@+id/wp_logo"
+			   android:paddingRight="16sp"
+			   android:clickable="true"/>
+
+    <LinearLayout android:layout_width="match_parent"
+    			  android:id="@+id/text_layout"
+    			  android:layout_height="wrap_content"
+    			  android:layout_gravity="center_vertical">
+
+        <TextView android:layout_height="wrap_content"
+        		  android:layout_width="wrap_content"
+        		  android:id="@+id/counter_text"
+        		  android:textSize="32sp"
+        		  android:textColor="@color/counter_color"
+        		  android:textStyle="bold"
+        		  android:paddingRight="7sp"
+        		  android:layout_gravity="center_vertical"/>
+        		  
+        <TextView android:layout_height="wrap_content"
+        		  android:layout_width="wrap_content"
+        		  android:id="@+id/description_text"
+        		  android:textSize="22sp"
+        		  android:ellipsize="end"
+        		  android:textColor="@color/description_color"
+        		  android:layout_gravity="center_vertical"/>
+        		  
+    </LinearLayout>
+    
+</LinearLayout>
