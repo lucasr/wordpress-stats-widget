@@ -85,7 +85,7 @@ public class Stats {
                 try {
                     in.close();
                 } catch (IOException e) {
-                	Log.w("Error closing input stream", e);
+                	Log.w("WordpressStats: Error closing input stream", e);
                 }
             }
         }
