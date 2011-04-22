@@ -71,9 +71,20 @@ public class Stats {
              * value on the second line. We simply ignore the first
              * line and parse the value as integer.
              */
-            in.readLine();
+            String firstLine = in.readLine();
 
-            viewCount = Integer.valueOf(in.readLine());
+            if (firstLine.equals("views")) {
+                Log.v("WordpressStats", "has a few view counts");
+                viewCount = Integer.valueOf(in.readLine());
+            } else if (firstLine.equals("Error: zero rows returned.")) {
+                /* Probably means the request returned zero rows
+                 * In which case the first line is the string
+                 * "Error: zero rows returned."
+                 */
+                Log.v("WordpressStats", "has no view counts");
+
+                viewCount = 0;
+            }
 
             in.close();
         } catch (IOException ioe) {
