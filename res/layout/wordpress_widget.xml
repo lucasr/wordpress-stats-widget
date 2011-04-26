@@ -1,46 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:background="@drawable/bg"
-              android:gravity="center"
-              android:orientation="horizontal"
-              android:id="@+id/main_layout"
-              android:paddingLeft="17sp"
-              android:paddingRight="17sp"
-              android:paddingTop="5sp"
-              android:paddingBottom="5sp"
-              android:layout_height="wrap_content"
-              android:layout_width="match_parent"
-              android:baselineAligned="true">
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:background="@drawable/bg"
+                android:id="@+id/widget_layout"
+                android:paddingLeft="@dimen/widget_padding_horizontal"
+                android:paddingRight="@dimen/widget_padding_horizontal"
+                android:paddingTop="@dimen/widget_padding_vertical"
+                android:paddingBottom="@dimen/widget_padding_vertical"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent">
 
-    <ImageView android:src="@drawable/wp_logo"
-			   android:layout_height="wrap_content"
-			   android:layout_width="wrap_content"
-			   android:id="@+id/wp_logo"
-			   android:paddingRight="16sp"
-			   android:clickable="true"/>
+    <TextView android:layout_height="wrap_content"
+    	      android:layout_width="wrap_content"
+    	      android:background="@drawable/url_bg"
+        	  android:id="@+id/url_text"
+        	  android:textSize="@dimen/url_text_size"
+        	  android:textStyle="bold"
+        	  android:textColor="@color/url_text_color"
+        	  android:layout_marginTop="@dimen/url_text_margin_top"
+        	  android:layout_marginLeft="@dimen/url_text_margin_left"
+        	  android:paddingTop="@dimen/url_text_padding_top"
+        	  android:paddingBottom="@dimen/url_text_padding_bottom"
+        	  android:paddingLeft="@dimen/url_text_padding_left"
+        	  android:paddingRight="@dimen/url_text_padding_right"
+        	  android:layout_gravity="left"/>
 
-    <LinearLayout android:layout_width="match_parent"
-    			  android:id="@+id/text_layout"
-    			  android:layout_height="wrap_content"
-    			  android:layout_gravity="center_vertical">
+    <TextView android:layout_height="wrap_content"
+    	      android:layout_width="wrap_content"
+        	  android:id="@+id/last_update_text"
+        	  android:textSize="@dimen/last_update_text_size"
+        	  android:textStyle="italic"
+        	  android:textColor="@color/last_update_text_color"
+        	  android:layout_marginTop="@dimen/last_update_text_margin_top"
+        	  android:layout_marginRight="@dimen/last_update_text_margin_right"
+        	  android:paddingTop="@dimen/last_update_text_padding_top"
+        	  android:paddingBottom="@dimen/last_update_text_padding_bottom"
+        	  android:paddingLeft="@dimen/last_update_text_padding_left"
+        	  android:paddingRight="@dimen/last_update_text_padding_right"
+        	  android:layout_gravity="right"/>
 
-        <TextView android:layout_height="wrap_content"
-        		  android:layout_width="wrap_content"
-        		  android:id="@+id/counter_text"
-        		  android:textSize="32sp"
-        		  android:textColor="@color/counter_color"
-        		  android:textStyle="bold"
-        		  android:paddingRight="7sp"
-        		  android:layout_gravity="center_vertical"/>
-        		  
-        <TextView android:layout_height="wrap_content"
-        		  android:layout_width="wrap_content"
-        		  android:id="@+id/description_text"
-        		  android:textSize="22sp"
-        		  android:ellipsize="end"
-        		  android:textColor="@color/description_color"
-        		  android:layout_gravity="center_vertical"/>
-        		  
-    </LinearLayout>
-    
-</LinearLayout>
+    <ImageView android:layout_width="wrap_content"
+    		   android:id="@+id/bar_chart"
+    		   android:layout_height="wrap_content"
+    		   android:layout_marginBottom="@dimen/chart_margin_bottom"
+        	   android:layout_gravity="center_horizontal|bottom"/>
+
+</FrameLayout>

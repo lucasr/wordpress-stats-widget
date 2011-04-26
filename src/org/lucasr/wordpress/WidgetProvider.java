@@ -21,11 +21,13 @@ public class WidgetProvider extends AppWidgetProvider {
 
 			String apiKey = prefs.getString(WidgetConfigure.PREFS_KEY_APP_KEY
 					+ appWidgetIds[i], null);
-			String blogId = prefs.getString(WidgetConfigure.PREFS_KEY_BLOG_HOST
+			String blogId = prefs.getString(WidgetConfigure.PREFS_KEY_BLOG_ID
 					+ appWidgetIds[i], null);
+            String blogHost = prefs.getString(WidgetConfigure.PREFS_KEY_BLOG_HOST
+                    + appWidgetIds[i], null);
 
             // Run task to get stats from wp server
-			new StatsTask(context, appWidgetIds[i], apiKey, blogId).execute();
+			new StatsTask(context, appWidgetIds[i], apiKey, blogId, blogHost).execute();
         }
 	}
 
@@ -40,7 +42,10 @@ public class WidgetProvider extends AppWidgetProvider {
         	Log.v("WordpressWidget", "removing prefs for " + appWidgetIds[i]);
 
     		prefs.remove(WidgetConfigure.PREFS_KEY_APP_KEY + appWidgetIds[i]);
+    		prefs.remove(WidgetConfigure.PREFS_KEY_BLOG_ID + appWidgetIds[i]);
     		prefs.remove(WidgetConfigure.PREFS_KEY_BLOG_HOST + appWidgetIds[i]);
+    		prefs.remove(WidgetConfigure.PREFS_KEY_VIEW_COUNTS + appWidgetIds[i]);
+    		prefs.remove(WidgetConfigure.PREFS_KEY_LAST_UPDATE + appWidgetIds[i]);
         }
 
 		prefs.commit();

@@ -1,16 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Wordpress Stats</string>
-    <string name="counter_description">views today</string>
-    <string name="counter_no_views">No views today</string>
-    <string name="counter_error">Oops!</string>
-    <string name="updating">Updating</string>
     <string name="configure_username">Username at WordPress.com</string>
     <string name="configure_password">Password</string>
     <string name="configure_log_in">Log In</string>
     <string name="configure_cancel">Never mind</string>
-    <string name="network_error">No connection</string>
-    <string name="login_error_network">Failed to connect.\nCheck your internet access.</string>
-    <string name="login_error_auth">Invalid username or password.\nDouble-check and try again.</string>
+    <string name="login_error_network">Failed to connect\nCheck your internet access</string>
+    <string name="login_error_auth">Invalid username or password\nDouble-check and try again</string>
     <string name="login_connecting">Connecting...</string>
+    <string name="title">Last 7 days</string>
+    <string name="today">Today</string>
+    <string name="network_error_title">Failed to connect</string>
+    <string name="network_error_description">Check your network connection and try again.</string>
+    <string name="try_again">Try Again</string>
+    <string name="generic_error_title">Could not update stats</string>
+    <string name="last_update">Updated on</string>
 </resources>

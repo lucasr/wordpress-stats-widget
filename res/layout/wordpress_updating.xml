@@ -18,21 +18,5 @@
 			     android:paddingRight="16sp"
 			     android:minHeight="55sp"
 			     android:minWidth="56sp"/>
-
-    <LinearLayout android:layout_width="match_parent"
-    			  android:id="@+id/text_layout"
-    			  android:layout_height="wrap_content"
-    			  android:layout_gravity="center_vertical">
-
-        <TextView android:layout_height="wrap_content"
-        		  android:layout_width="wrap_content"
-        		  android:id="@+id/loading_text"
-        		  android:text="@string/updating"
-        		  android:textSize="22sp"
-        		  android:ellipsize="end"
-        		  android:textColor="@color/description_color"
-        		  android:layout_gravity="center_vertical"/>
-        		  
-    </LinearLayout>
     
 </LinearLayout>

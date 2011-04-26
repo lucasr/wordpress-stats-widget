@@ -65,7 +65,7 @@ public class BlogInfo {
         HttpPost request =
         	new HttpPost("https://public-api.wordpress.com/getuserblogs.php?f=json");
 
-        //request.addHeader("charset", "UTF-8");
+        request.addHeader("charset", "UTF-8");
 
 		HttpParams httpParams = request.getParams();
 		HttpProtocolParams.setUseExpectContinue(httpParams, false);
@@ -110,6 +110,7 @@ public class BlogInfo {
             if (blogs.length() > 0) {
             	JSONObject blog = (JSONObject) blogs.get(0);
             	blogInfo.put("blogId", blog.getString("id"));
+            	blogInfo.put("blogHost", blog.getString("url"));
             }
 
             in.close();

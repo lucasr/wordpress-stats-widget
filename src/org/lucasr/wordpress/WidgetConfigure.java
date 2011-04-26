@@ -20,7 +20,10 @@ import android.widget.TextView;
 public class WidgetConfigure extends Activity {
 	public static final String PREFS_NAME = "org.lucasr.wordpress.WidgetProvider";
 	public static final String PREFS_KEY_APP_KEY = "app_key_";
+	public static final String PREFS_KEY_BLOG_ID = "blog_id_";
 	public static final String PREFS_KEY_BLOG_HOST = "blog_host_";
+	public static final String PREFS_KEY_VIEW_COUNTS = "view_counts_";
+	public static final String PREFS_KEY_LAST_UPDATE = "last_update_";
 
 	private final Context context;
 
@@ -72,6 +75,7 @@ public class WidgetConfigure extends Activity {
 
         cancelButton = (Button) findViewById(R.id.cancel_button);
         cancelButton.setOnClickListener(new View.OnClickListener() {
+            @Override
             public void onClick(View v) {
                 finish();
             }
@@ -79,6 +83,7 @@ public class WidgetConfigure extends Activity {
 
         loginButton = (Button) findViewById(R.id.login_button);
         loginButton.setOnClickListener(new View.OnClickListener() {
+            @Override
             public void onClick(View v) {
             	startLogin();
             }
@@ -134,19 +139,20 @@ public class WidgetConfigure extends Activity {
             loginButton = findViewById(R.id.login_button);
         }
 
-        private void saveBlogInfo(String apiKey, String blogId) {
+        private void saveBlogInfo(String apiKey, String blogId, String blogHost) {
             SharedPreferences.Editor prefs =
                 context.getSharedPreferences(WidgetConfigure.PREFS_NAME, 0).edit();
 
             prefs.putString(WidgetConfigure.PREFS_KEY_APP_KEY + appWidgetId, apiKey);
-            prefs.putString(WidgetConfigure.PREFS_KEY_BLOG_HOST + appWidgetId, blogId);
+            prefs.putString(WidgetConfigure.PREFS_KEY_BLOG_ID + appWidgetId, blogId);
+            prefs.putString(WidgetConfigure.PREFS_KEY_BLOG_HOST + appWidgetId, blogHost);
 
             prefs.commit();
         }
 
-        private void updateAppWidget(String apiKey, String blogId) {
+        private void updateAppWidget(String apiKey, String blogId, String blogHost) {
             // Fetch latest stats and update the widget accordingly
-            new StatsTask(context, appWidgetId, apiKey, blogId).execute();
+            new StatsTask(context, appWidgetId, apiKey, blogId, blogHost).execute();
         }
 
         private void updateResultAndFinish() {
@@ -191,13 +197,15 @@ public class WidgetConfigure extends Activity {
 
             String apiKey = null;
             String blogId = null;
+            String blogHost = null;
 
             if (blogInfo != null) {
                 apiKey = blogInfo.get("apiKey");
                 blogId = blogInfo.get("blogId");
+                blogHost = blogInfo.get("blogHost");
             }
 
-            if (apiKey == null || blogId == null) {
+            if (apiKey == null || blogId == null || blogHost == null) {
                 progressLayout.setVisibility(View.GONE);
                 errorLayout.setVisibility(View.VISIBLE);
 
@@ -206,8 +214,8 @@ public class WidgetConfigure extends Activity {
                 cancelButton.setEnabled(true);
                 loginButton.setEnabled(true);
             } else {
-                saveBlogInfo(apiKey, blogId);
-                updateAppWidget(apiKey, blogId);
+                saveBlogInfo(apiKey, blogId, blogHost);
+                updateAppWidget(apiKey, blogId, blogHost);
                 updateResultAndFinish();
             }
         }
