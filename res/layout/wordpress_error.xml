@@ -10,21 +10,21 @@
                 android:layout_width="match_parent">
 
     <TextView android:layout_height="wrap_content"
-    	      android:layout_width="wrap_content"
-        	  android:id="@+id/title_text"
-        	  android:text="@string/generic_error_title"
-        	  android:textSize="@dimen/title_text_size"
-        	  android:layout_margin="@dimen/title_text_margin"
-        	  android:layout_gravity="left"
-        	  android:textColor="@color/title_text_color"/>
+              android:layout_width="wrap_content"
+              android:id="@+id/title_text"
+              android:text="@string/generic_error_title"
+              android:textSize="@dimen/title_text_size"
+              android:layout_margin="@dimen/title_text_margin"
+              android:layout_gravity="left"
+              android:textColor="@color/title_text_color"/>
 
     <Button android:layout_width="wrap_content"
-    		android:id="@+id/try_again_button"
-    		android:text="@string/try_again"
-    		android:layout_height="wrap_content"
-    		android:textSize="12sp"
-    		android:layout_margin="@dimen/try_again_button_margin"
-    		android:layout_below="@+id/title_text"
-    		android:layout_centerHorizontal="true"/>
+            android:id="@+id/try_again_button"
+            android:text="@string/try_again"
+            android:layout_height="wrap_content"
+            android:textSize="12sp"
+            android:layout_margin="@dimen/try_again_button_margin"
+            android:layout_below="@+id/title_text"
+            android:layout_centerHorizontal="true"/>
 
 </RelativeLayout>

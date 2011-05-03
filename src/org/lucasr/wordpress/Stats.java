@@ -24,43 +24,43 @@ public class Stats {
     private final String apiKey;
     private final String blogId;
 
-	public Stats(String apiKey, String blogId) {
-	    client = new DefaultHttpClient();
+    public Stats(String apiKey, String blogId) {
+        client = new DefaultHttpClient();
 
-	    this.apiKey = apiKey;
-	    this.blogId = blogId;
-	}
+        this.apiKey = apiKey;
+        this.blogId = blogId;
+    }
 
-	private String getFormattedDate() {
+    private String getFormattedDate() {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         Date now = new Date();
 
         return dateFormat.format(now);
-	}
+    }
 
-	private HttpRequest createViewCountsRequest() throws URISyntaxException {
+    private HttpRequest createViewCountsRequest() throws URISyntaxException {
         Log.v("WordpressStats", "creating request");
 
         HttpGet request = new HttpGet();
 
         request.setURI(new URI("http://stats.wordpress.com/csv.php?" +
-        					   "api_key=" + apiKey + "&" +
-        					   "blog_id=" + blogId + "&" +
-        					   "format=csv&" +
-        					   "days=6&" +
-        					   "end=" + getFormattedDate()));
+                               "api_key=" + apiKey + "&" +
+                               "blog_id=" + blogId + "&" +
+                               "format=csv&" +
+                               "days=6&" +
+                               "end=" + getFormattedDate()));
 
         return request;
-	}
+    }
 
-	public Vector<Integer> getViewCounts() throws NetworkException {
+    public Vector<Integer> getViewCounts() throws NetworkException {
         BufferedReader in = null;
         Vector<Integer> viewCounts = new Vector<Integer>();
 
         Log.v("WordpressStats", "getViewCounts()");
 
         try {
-        	HttpRequest request = createViewCountsRequest();
+            HttpRequest request = createViewCountsRequest();
             HttpResponse response = client.execute((HttpUriRequest) request);
             InputStream is = response.getEntity().getContent();
 
@@ -74,13 +74,13 @@ public class Stats {
             String firstLine = in.readLine();
 
             if (firstLine.equals("date,views")) {
-            	String line;
+                String line;
 
-            	Log.v("WordpressStats", "has a few view counts");
+                Log.v("WordpressStats", "has a few view counts");
 
                 while ((line = in.readLine()) != null) {
-                	String[] data = line.split(",");
-                	viewCounts.add(Integer.valueOf(data[1]));
+                    String[] data = line.split(",");
+                    viewCounts.add(Integer.valueOf(data[1]));
                 }
             } else if (firstLine.equals("Error: zero rows returned.")) {
                 /* Probably means the request returned zero rows
@@ -92,22 +92,22 @@ public class Stats {
 
             in.close();
         } catch (IOException ioe) {
-        	Log.w("WordpressStats: Network error fetching number of views", ioe);
-        	throw new NetworkException();
+            Log.w("WordpressStats: Network error fetching number of views", ioe);
+            throw new NetworkException();
         } catch (Exception e) {
-        	Log.w("WordpressStats: Error fetching number of views", e);
-		} finally {
+            Log.w("WordpressStats: Error fetching number of views", e);
+        } finally {
             if (in != null) {
                 try {
                     in.close();
                 } catch (IOException e) {
-                	Log.w("WordpressStats: Error closing input stream", e);
+                    Log.w("WordpressStats: Error closing input stream", e);
                 }
             }
         }
 
-		Log.v("WordpressStats", "done (" + viewCounts + ")");
+        Log.v("WordpressStats", "done (" + viewCounts + ")");
 
-		return viewCounts;
-	}
+        return viewCounts;
+    }
 }

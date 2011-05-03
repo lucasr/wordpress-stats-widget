@@ -1,6 +1,6 @@
 <appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
-    				android:minWidth="240sp"
-    				android:updatePeriodMillis="1800000"
-    				android:initialLayout="@layout/wordpress_updating"
-    				android:configure="org.lucasr.wordpress.WidgetConfigure">
+                    android:minWidth="240sp"
+                    android:updatePeriodMillis="1800000"
+                    android:initialLayout="@layout/wordpress_updating"
+                    android:configure="org.lucasr.wordpress.WidgetConfigure">
 </appwidget-provider>

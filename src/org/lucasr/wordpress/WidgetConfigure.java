@@ -18,38 +18,38 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 public class WidgetConfigure extends Activity {
-	public static final String PREFS_NAME = "org.lucasr.wordpress.WidgetProvider";
-	public static final String PREFS_KEY_APP_KEY = "app_key_";
-	public static final String PREFS_KEY_BLOG_ID = "blog_id_";
-	public static final String PREFS_KEY_BLOG_HOST = "blog_host_";
-	public static final String PREFS_KEY_VIEW_COUNTS = "view_counts_";
-	public static final String PREFS_KEY_LAST_UPDATE = "last_update_";
+    public static final String PREFS_NAME = "org.lucasr.wordpress.WidgetProvider";
+    public static final String PREFS_KEY_APP_KEY = "app_key_";
+    public static final String PREFS_KEY_BLOG_ID = "blog_id_";
+    public static final String PREFS_KEY_BLOG_HOST = "blog_host_";
+    public static final String PREFS_KEY_VIEW_COUNTS = "view_counts_";
+    public static final String PREFS_KEY_LAST_UPDATE = "last_update_";
 
-	private final Context context;
+    private final Context context;
 
-	private int appWidgetId = AppWidgetManager.INVALID_APPWIDGET_ID;
+    private int appWidgetId = AppWidgetManager.INVALID_APPWIDGET_ID;
 
-	private Button loginButton;
-	private Button cancelButton;
-	private EditText usernameEntry;
-	private EditText passwordEntry;
+    private Button loginButton;
+    private Button cancelButton;
+    private EditText usernameEntry;
+    private EditText passwordEntry;
 
-	public WidgetConfigure() {
+    public WidgetConfigure() {
         super();
 
         context = WidgetConfigure.this;
     }
 
-	private void startLogin() {
-	    new BlogInfoTask().execute();
-	}
+    private void startLogin() {
+        new BlogInfoTask().execute();
+    }
 
-	private void updateLoginButtonFromEntries() {
-		boolean enableLoginButton = usernameEntry.getText().length() != 0 &&
-									passwordEntry.getText().length() != 0;
+    private void updateLoginButtonFromEntries() {
+        boolean enableLoginButton = usernameEntry.getText().length() != 0 &&
+                                    passwordEntry.getText().length() != 0;
 
-		loginButton.setEnabled(enableLoginButton);
-	}
+        loginButton.setEnabled(enableLoginButton);
+    }
 
     @Override
     public void onCreate(Bundle icicle) {
@@ -65,7 +65,7 @@ public class WidgetConfigure extends Activity {
 
         if (extras != null) {
             appWidgetId = extras.getInt(AppWidgetManager.EXTRA_APPWIDGET_ID,
-                    					AppWidgetManager.INVALID_APPWIDGET_ID);
+                                        AppWidgetManager.INVALID_APPWIDGET_ID);
         }
 
         // If we can't find an app widget id, just finish straight away
@@ -85,7 +85,7 @@ public class WidgetConfigure extends Activity {
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-            	startLogin();
+                startLogin();
             }
         });
 
@@ -93,20 +93,20 @@ public class WidgetConfigure extends Activity {
         passwordEntry = (EditText) findViewById(R.id.password_entry);
 
         TextWatcher entryWatcher = new TextWatcher() {
-			@Override
-			public void onTextChanged(CharSequence s, int start, int before, int count) {
-				updateLoginButtonFromEntries();
-			}
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                updateLoginButtonFromEntries();
+            }
 
-			@Override
-			public void beforeTextChanged(CharSequence s, int start, int count,
-					int after) {
-			}
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count,
+                    int after) {
+            }
 
-			@Override
-			public void afterTextChanged(Editable s) {
-			}
-		};
+            @Override
+            public void afterTextChanged(Editable s) {
+            }
+        };
 
         usernameEntry.addTextChangedListener(entryWatcher);
         passwordEntry.addTextChangedListener(entryWatcher);

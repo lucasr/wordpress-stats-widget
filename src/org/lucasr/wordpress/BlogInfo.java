@@ -27,64 +27,64 @@ import android.util.Log;
 public class BlogInfo {
     private final DefaultHttpClient client;
 
-	public BlogInfo(String username, String password) {
-		client = new DefaultHttpClient();
+    public BlogInfo(String username, String password) {
+        client = new DefaultHttpClient();
 
-		setupCredentials(username, password);
-		setupSSLScheme();
-	}
+        setupCredentials(username, password);
+        setupSSLScheme();
+    }
 
-	private void setupCredentials(String username, String password) {
-		Log.v("WordpressBlogInfo", "setting up credentials");
+    private void setupCredentials(String username, String password) {
+        Log.v("WordpressBlogInfo", "setting up credentials");
 
         UsernamePasswordCredentials creds =
-        	new UsernamePasswordCredentials(username, password);
+            new UsernamePasswordCredentials(username, password);
 
         BasicCredentialsProvider cp = new BasicCredentialsProvider();
         cp.setCredentials(AuthScope.ANY, creds);
 
         client.setCredentialsProvider(cp);
-	}
+    }
 
-	private void setupSSLScheme() {
-		Log.v("WordpressBlogInfo", "setting up SSl scheme");
+    private void setupSSLScheme() {
+        Log.v("WordpressBlogInfo", "setting up SSl scheme");
 
-		try {
-			TrustAllSSLSocketFactory sf = new TrustAllSSLSocketFactory();
-	        Scheme scheme = new Scheme("https", sf, 443);
+        try {
+            TrustAllSSLSocketFactory sf = new TrustAllSSLSocketFactory();
+            Scheme scheme = new Scheme("https", sf, 443);
 
-	        client.getConnectionManager().getSchemeRegistry().register(scheme);
-		} catch (Exception e) {
-			Log.w("WordpressBlogInfo: Error setting up SSL for wordpress blog info", e);
-		}
-	}
+            client.getConnectionManager().getSchemeRegistry().register(scheme);
+        } catch (Exception e) {
+            Log.w("WordpressBlogInfo: Error setting up SSL for wordpress blog info", e);
+        }
+    }
 
-	private HttpRequest createBlogInfoRequest() throws URISyntaxException {
+    private HttpRequest createBlogInfoRequest() throws URISyntaxException {
         Log.v("WordpressBlogInfo", "creating request");
 
         HttpPost request =
-        	new HttpPost("https://public-api.wordpress.com/getuserblogs.php?f=json");
+            new HttpPost("https://public-api.wordpress.com/getuserblogs.php?f=json");
 
         request.addHeader("charset", "UTF-8");
 
-		HttpParams httpParams = request.getParams();
-		HttpProtocolParams.setUseExpectContinue(httpParams, false);
+        HttpParams httpParams = request.getParams();
+        HttpProtocolParams.setUseExpectContinue(httpParams, false);
 
         return request;
-	}
+    }
 
-	public HashMap<String, String> getInfo() throws NoAuthException, NetworkException {
+    public HashMap<String, String> getInfo() throws NoAuthException, NetworkException {
         BufferedReader in = null;
         HashMap<String, String> blogInfo = new HashMap<String, String>();
 
         Log.v("WordpressBlogInfo", "getBlogInfo()");
 
         try {
-        	HttpRequest request = createBlogInfoRequest();
+            HttpRequest request = createBlogInfoRequest();
             HttpResponse response = client.execute((HttpUriRequest) request);
 
             if (response.getStatusLine().getStatusCode() == 401) {
-            	throw new NoAuthException();
+                throw new NoAuthException();
             }
 
             InputStream is = response.getEntity().getContent();
@@ -95,7 +95,7 @@ public class BlogInfo {
             String line;
 
             while ((line = in.readLine()) != null) {
-            	sb.append(line);
+                sb.append(line);
             }
 
             JSONObject json = (JSONObject) new JSONTokener(sb.toString()).nextValue();
@@ -103,35 +103,35 @@ public class BlogInfo {
 
             String apiKey = userInfo.getString("apikey");
             if (apiKey != null) {
-            	blogInfo.put("apiKey", apiKey);
+                blogInfo.put("apiKey", apiKey);
             }
 
             JSONArray blogs = userInfo.getJSONArray("blog");
             if (blogs.length() > 0) {
-            	JSONObject blog = (JSONObject) blogs.get(0);
-            	blogInfo.put("blogId", blog.getString("id"));
-            	blogInfo.put("blogHost", blog.getString("url"));
+                JSONObject blog = (JSONObject) blogs.get(0);
+                blogInfo.put("blogId", blog.getString("id"));
+                blogInfo.put("blogHost", blog.getString("url"));
             }
 
             in.close();
         } catch (IOException ioe) {
-        	throw new NetworkException();
+            throw new NetworkException();
         } catch (NoAuthException nae) {
-        	throw nae;
+            throw nae;
         } catch (Exception e) {
-        	Log.w("WordpressBlogInfo: Error fetching blog info", e);
-		} finally {
+            Log.w("WordpressBlogInfo: Error fetching blog info", e);
+        } finally {
             if (in != null) {
                 try {
                     in.close();
                 } catch (IOException e) {
-                	Log.w("Error closing input stream", e);
+                    Log.w("Error closing input stream", e);
                 }
             }
         }
 
-		Log.v("WordpressBlogInfo", "done");
+        Log.v("WordpressBlogInfo", "done");
 
-		return blogInfo;
-	}
+        return blogInfo;
+    }
 }
