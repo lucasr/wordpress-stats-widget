@@ -11,7 +11,7 @@
 
     <ImageView android:layout_width="wrap_content"
     		   android:id="@+id/wp_logo"
-    		   android:src="@drawable/wp_logo_large"
+    		   android:src="@drawable/wp_logo"
     		   android:layout_height="wrap_content"
     		   android:layout_gravity="center_horizontal"
     		   android:paddingTop="30sp"
