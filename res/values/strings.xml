@@ -9,7 +9,7 @@
     <string name="login_error_auth">Invalid username or password\nDouble-check and try again</string>
     <string name="today">Today</string>
     <string name="network_error_title">Failed to connect</string>
-    <string name="try_again">Try Again</string>
-    <string name="generic_error_title">Could not update stats</string>
+    
+    <string name="generic_error_title">Could not update stats</string><string name="try_again">Try Again</string>
     <string name="last_update">Updated on</string>
 </resources>
