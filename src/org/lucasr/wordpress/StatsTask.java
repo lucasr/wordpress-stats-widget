@@ -96,14 +96,10 @@ final class StatsTask extends AsyncTask<Void, Void, Vector<Integer>> {
         SharedPreferences prefs =
             context.getSharedPreferences(WidgetConfigure.PREFS_NAME, 0);
 
-        String lastUpdateTime = prefs.getString(WidgetConfigure.PREFS_KEY_LAST_UPDATE
+        String lastUpdate = prefs.getString(WidgetConfigure.PREFS_KEY_LAST_UPDATE
                 + appWidgetId, null);
 
-        if (lastUpdateTime != null) {
-            String lastUpdateStr =
-                context.getResources().getString(R.string.last_update);
-
-            String lastUpdate = String.format("%s %s", lastUpdateStr, lastUpdateTime);
+        if (lastUpdate != null) {
             rv.setCharSequence(R.id.last_update_text, "setText", lastUpdate);
         } else {
             rv.setViewVisibility(R.id.last_update_text, View.GONE);
