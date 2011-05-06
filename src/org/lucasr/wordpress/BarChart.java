@@ -26,18 +26,50 @@ public class BarChart {
     private final Bitmap bitmap;
     private final Canvas canvas;
 
+    private float chartWidth;
+    private float chartHeight;
+
+    private float separatorWidth;
+    private float separatorPosition;
+
+    private float barWidth;
+    private float barSpacing;
+    private float maxBarHeight;
+    private float barStrokeWidth;
+
+    private float counterTextSize;
+    private float dateTextSize;
+
     public BarChart(Context context, Vector<Integer> viewCounts) {
         this.viewCounts = viewCounts;
 
         resources = context.getResources();
         metrics = resources.getDisplayMetrics();
 
-        bitmap = Bitmap.createBitmap((int) getDimension(R.dimen.chart_width),
-                (int) getDimension(R.dimen.chart_height), Bitmap.Config.ARGB_8888);
+        initDimensions();
+
+        bitmap = Bitmap.createBitmap((int) chartWidth,
+                (int) chartHeight, Bitmap.Config.ARGB_8888);
 
         canvas = new Canvas(bitmap);
 
         drawChart();
+    }
+
+    private void initDimensions() {
+        chartWidth = getDimension(R.dimen.chart_width);
+        chartHeight = getDimension(R.dimen.chart_height);
+
+        separatorWidth = getDimension(R.dimen.bar_chart_separator_width);
+        separatorPosition = getDimension(R.dimen.bar_chart_separator_position);
+
+        barWidth = getDimension(R.dimen.bar_chart_bar_width);
+        barSpacing = getDimension(R.dimen.bar_chart_bar_spacing);
+        maxBarHeight = getDimension(R.dimen.bar_chart_max_bar_height);
+        barStrokeWidth = getDimension(R.dimen.bar_chart_bar_stroke_width);
+
+        counterTextSize = getDimension(R.dimen.bar_chart_counter_text_size);
+        dateTextSize = getDimension(R.dimen.bar_chart_date_text_size);
     }
 
     private void drawChart() {
@@ -49,12 +81,12 @@ public class BarChart {
         Paint linePaint = new Paint();
 
         linePaint.setColor(getColor(R.color.bar_chart_separator_color));
-        linePaint.setStrokeWidth(getDimension(R.dimen.bar_chart_separator_width));
+        linePaint.setStrokeWidth(separatorWidth);
 
         canvas.drawLine(0,
-                        getDimension(R.dimen.bar_chart_separator_position),
-                        getDimension(R.dimen.chart_width),
-                        getDimension(R.dimen.bar_chart_separator_position),
+                        separatorPosition,
+                        chartWidth,
+                        separatorPosition,
                         linePaint);
     }
 
@@ -70,15 +102,15 @@ public class BarChart {
             }
         }
 
-        float totalWidth = nCounts * getDimension(R.dimen.bar_chart_bar_width) +
-                           (nCounts - 1) * getDimension(R.dimen.bar_chart_bar_spacing);
+        float totalWidth = nCounts * barWidth +
+                           (nCounts - 1) * barSpacing;
 
-        float x = (getDimension(R.dimen.chart_width) - totalWidth) / 2;
+        float x = (chartWidth - totalWidth) / 2;
 
         for (int i = 0; i < nCounts; i++) {
             int count = viewCounts.get(i);
 
-            float height = count * getDimension(R.dimen.bar_chart_max_bar_height) / maxCount;
+            float height = count * maxBarHeight / maxCount;
 
             int type = (i == nCounts - 1 ? BAR_TYPE_TODAY : BAR_TYPE_REGULAR);
 
@@ -86,8 +118,7 @@ public class BarChart {
             drawCounter(x, height, count, type);
             drawDate(x, i);
 
-            x += getDimension(R.dimen.bar_chart_bar_width) +
-                 getDimension(R.dimen.bar_chart_bar_spacing);
+            x += barWidth + barSpacing;
         }
     }
 
@@ -109,9 +140,9 @@ public class BarChart {
 
         LinearGradient gradient =
                 new LinearGradient(x,
-                                   getDimension(R.dimen.bar_chart_separator_position) - height,
+                                   separatorPosition - height,
                                    x,
-                                   getDimension(R.dimen.bar_chart_separator_position),
+                                   separatorPosition,
                                    barColor1,
                                    barColor2,
                                    TileMode.CLAMP);
@@ -119,20 +150,20 @@ public class BarChart {
         barPaint.setShader(gradient);
 
         canvas.drawRect(x,
-                        getDimension(R.dimen.bar_chart_separator_position) - height,
-                        x + getDimension(R.dimen.bar_chart_bar_width),
-                        getDimension(R.dimen.bar_chart_separator_position),
+                        separatorPosition - height,
+                        x + barWidth,
+                        separatorPosition,
                         barPaint);
 
         barPaint.setColor(getColor(R.color.bar_chart_bar_stroke_color));
-        barPaint.setStrokeWidth(getDimension(R.dimen.bar_chart_bar_stroke_width));
+        barPaint.setStrokeWidth(barStrokeWidth);
         barPaint.setStyle(Paint.Style.STROKE);
         barPaint.setShader(null);
 
         canvas.drawRect(x,
-                        getDimension(R.dimen.bar_chart_separator_position) - height,
-                        x + getDimension(R.dimen.bar_chart_bar_width),
-                        getDimension(R.dimen.bar_chart_separator_position),
+                        separatorPosition - height,
+                        x + barWidth,
+                        separatorPosition,
                         barPaint);
     }
 
@@ -143,7 +174,7 @@ public class BarChart {
         Paint datePaint = new Paint(Paint.ANTI_ALIAS_FLAG);
 
         datePaint.setTextAlign(Paint.Align.CENTER);
-        datePaint.setTextSize(getDimension(R.dimen.bar_chart_date_text_size));
+        datePaint.setTextSize(dateTextSize);
         datePaint.setColor(getColor(R.color.bar_chart_date_text_color));
 
         Calendar calendar = Calendar.getInstance();
@@ -160,8 +191,8 @@ public class BarChart {
 
         canvas.drawText(dateText,
                         0, dateText.length(),
-                        x + getDimension(R.dimen.bar_chart_bar_width) / 2,
-                        getDimension(R.dimen.bar_chart_separator_position) +
+                        x + barWidth / 2,
+                        separatorPosition +
                         fromDipToPixels(10),
                         datePaint);
     }
@@ -170,7 +201,7 @@ public class BarChart {
         Paint counterPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
 
         counterPaint.setTextAlign(Paint.Align.CENTER);
-        counterPaint.setTextSize(getDimension(R.dimen.bar_chart_counter_text_size));
+        counterPaint.setTextSize(counterTextSize);
         counterPaint.setColor(getColor(R.color.bar_chart_counter_text_color));
 
         if (type == BAR_TYPE_TODAY) {
@@ -181,8 +212,8 @@ public class BarChart {
 
         canvas.drawText(counterText,
                         0, counterText.length(),
-                        x + getDimension(R.dimen.bar_chart_bar_width) / 2,
-                        getDimension(R.dimen.bar_chart_separator_position) -
+                        x + barWidth / 2,
+                        separatorPosition -
                         height - fromDipToPixels(3),
                         counterPaint);
     }
