@@ -193,7 +193,7 @@ public class BarChart {
                         0, dateText.length(),
                         x + barWidth / 2,
                         separatorPosition +
-                        fromDipToPixels(10),
+                        fromDipToPixels(11),
                         datePaint);
     }
 
