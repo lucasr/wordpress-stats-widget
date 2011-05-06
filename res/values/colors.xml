@@ -12,6 +12,7 @@
     <color name="bar_chart_bar_color1">#21759B</color>
     <color name="bar_chart_bar_color2">#64A2BE</color>
     <color name="bar_chart_counter_text_color">#FFFFFF</color>
-    <color name="bar_chart_date_text_color">#FFFFFF</color><color name="last_update_text_color">#999999</color>
+    <color name="bar_chart_date_text_color">#FFFFFF</color>
+    <color name="last_update_text_color">#999999</color>
     
 </resources>
