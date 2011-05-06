@@ -14,7 +14,8 @@
     <dimen name="try_again_button_margin">4sp</dimen>
     <dimen name="chart_width">304dip</dimen>
     
-    <dimen name="chart_height">65dip</dimen><dimen name="chart_margin_bottom">3sp</dimen>
+    <dimen name="chart_height">65dip</dimen>
+    <dimen name="chart_margin_bottom">3sp</dimen>
     <dimen name="bar_chart_separator_width">2dip</dimen>
     <dimen name="bar_chart_bar_width">35dip</dimen>
     <dimen name="bar_chart_bar_spacing">14dip</dimen>
